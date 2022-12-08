@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import {increment, decrement} from '../redux/actions'
 import {increment2, decrement2} from '../redux/actions'
 import {increment3, decrement3} from '../redux/actions'
+import {increment4, decrement4} from '../redux/actions'
 
 class App extends Component {
 
@@ -95,16 +96,24 @@ class App extends Component {
 //     }
 // })(App)
 
-// 移步mapDispatchToProps接收函数 dispatch接收函数
+// 同步mapDispatchToProps接收函数 把dispatch交给用户处理
+// export default connect(state => ({
+//     count: state.count
+// }), (dispatch, ownProps) => {
+//     return {
+//         increment: (value) => {
+//             increment3(value)(dispatch)
+//         },
+//         decrement: (value) => {
+//             decrement3(dispatch, value)
+//         }
+//     }
+// })(App)
+
+// 异步接口
 export default connect(state => ({
     count: state.count
-}), (dispatch, ownProps) => {
-    return {
-        increment: (value) => {
-            dispatch(increment3(dispatch, value))
-        },
-        decrement: (value) => {
-            dispatch(decrement3(dispatch, value))
-        }
-    }
+}), {
+    increment: increment4,
+    decrement: decrement4
 })(App)

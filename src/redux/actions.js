@@ -13,10 +13,32 @@ export function decrement(value) {
 export const increment2 = (value) => ({type: INCREMENT, data: {count: value}})
 export const decrement2 = (value) => ({type: DECREMENT, data: {count: value}})
 
-// actionCreator移步写法
-export const increment3 = (dispatch, value) => {
-    dispatch(increment(value))
+// 另一种写法
+export const increment3 = (value) => {
+    return (dispatch) => {
+        dispatch(increment(value))
+        setTimeout(() => {
+            dispatch(increment(value))
+        }, 3000)
+    }
 }
+
 export const decrement3 = (dispatch, value) => {
     dispatch(decrement(value))
+}
+
+// 另一种写法
+export const increment4 = (value) => {
+    return (dispatch) => {
+        dispatch(increment(value))
+        setTimeout(() => {
+            dispatch(increment(value))
+        }, 1000)
+    }
+}
+
+export const decrement4 = (value) => {
+    return (dispatch) => {
+        dispatch(decrement(value))
+    }
 }
