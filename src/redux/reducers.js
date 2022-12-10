@@ -1,24 +1,26 @@
-import {INCREMENT, DECREMENT} from './action-types'
+import {ADD_COMMENT, DELETE_COMMENT, REQUEST_COMMENT} from './action_types'
 
-/**
- *
- * @param state 初始值 or 原始state值
- * @param action 动作
- * @returns {*}
- */
-
-const INIT_STATE = {
-    count: 0
+const initState = {
+    comments: []
 }
 
-export function counter(state, action) {
-    console.log('counter reducer state:', state, 'action:', action)
+export function reducers(state, action) {
+    console.log(`reducers state:${JSON.stringify(state)} action:${JSON.stringify(action)}`)
     switch (action.type) {
-        case INCREMENT:
-            return {count: state.count + action.data.count}
-        case DECREMENT:
-            return {count: state.count - action.data.count}
+        case ADD_COMMENT:
+            return {comments: [action.data, ...state.comments]}
+        case DELETE_COMMENT:
+            const result = {
+                comments: state.comments.filter((e, index) => {
+                    return action.data !== index
+                })
+            }
+            console.log('delete:', result)
+            return result
+
+        case REQUEST_COMMENT:
+            return {comments: [...action.data.comments, ...state.comments]}
         default:
-            return INIT_STATE
+            return initState
     }
 }

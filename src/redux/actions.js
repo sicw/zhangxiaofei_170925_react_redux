@@ -1,44 +1,25 @@
-import {INCREMENT, DECREMENT} from "./action-types";
+import {ADD_COMMENT, DELETE_COMMENT, REQUEST_COMMENT} from './action_types'
 
-export function increment(value) {
-    // debugger
-    return {type: INCREMENT, data: {count: value}}
+export function addComment(comment) {
+    return {type: ADD_COMMENT, data: comment}
 }
 
-export function decrement(value) {
-    return {type: DECREMENT, data: {count: value}}
+export function deleteComment(id) {
+    return {type: DELETE_COMMENT, data: id}
 }
 
-// 另一种写法
-export const increment2 = (value) => ({type: INCREMENT, data: {count: value}})
-export const decrement2 = (value) => ({type: DECREMENT, data: {count: value}})
+// 请求后端服务
+const data = {
+    comments: [
+        {username: 'Tom', content: 'React挺好的!'},
+        {username: 'Jack', content: 'React太难了!'},
+    ]
+}
 
-// 另一种写法
-export const increment3 = (value) => {
+export function requestComment() {
     return (dispatch) => {
-        dispatch(increment(value))
         setTimeout(() => {
-            dispatch(increment(value))
-        }, 3000)
-    }
-}
-
-export const decrement3 = (dispatch, value) => {
-    dispatch(decrement(value))
-}
-
-// 另一种写法
-export const increment4 = (value) => {
-    return (dispatch) => {
-        dispatch(increment(value))
-        setTimeout(() => {
-            dispatch(increment(value))
-        }, 1000)
-    }
-}
-
-export const decrement4 = (value) => {
-    return (dispatch) => {
-        dispatch(decrement(value))
+            dispatch({type: REQUEST_COMMENT, data: data})
+        }, 2000)
     }
 }
