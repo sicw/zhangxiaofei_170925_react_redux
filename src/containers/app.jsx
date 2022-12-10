@@ -55,7 +55,8 @@ class App extends Component {
 export default connect(
     state => {
         return {
-            comments: state.comments
+            comments: state.reducers1.comments,
+            comments2: state.reducers2.comments2
         }
     },
     {
